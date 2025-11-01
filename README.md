@@ -1,4 +1,11 @@
-# Welcome to your Lovable project
+# QuickFit
+
+## Todos
+- Edit muscle anatomy diagram dimensions, the diagram is a stick
+- Change heading for hypertrophy tips. Colours for hypertrophy heading make the word almost invisible.
+- Some muscle groups have limited exercise options, especially for home workouts without equipment, eg QUADS - 1 Exercise: Bulgarian Split Squat. Bruh (Include eg squats, lunges)
+- Instructions for some exercises not clear, "elevated"? Beginners may not understand. Eg. Edit it to "elevated on a firm object eg a stool, bench"
+- Deploy app after preview Version 1.0
 
 ## Project info
 
