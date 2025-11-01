@@ -7,6 +7,9 @@
 - Instructions for some exercises not clear, "elevated"? Beginners may not understand. Eg. Edit it to "elevated on a firm object eg a stool, bench"
 - Deploy app after preview Version 1.0
 
+## IMPORTANT: How to update app version 
+If you deploy to app store or play store, you must follow these steps: Edited code -> Create new build -> Submit for review -> App store review for a few days -> user gets the update notification 
+
 ## Project info
 
 **URL**: https://lovable.dev/projects/e487182a-3af2-432c-adbe-6bcd7b074c64
