@@ -9,6 +9,7 @@
 
 ## IMPORTANT: How to update app version 
 If you deploy to app store or play store, you must follow these steps: Edited code -> Create new build -> Submit for review -> App store review for a few days -> user gets the update notification 
+-> Web app is easier ngl
 
 ## Project info
 
