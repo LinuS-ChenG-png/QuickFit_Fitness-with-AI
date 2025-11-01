@@ -271,9 +271,9 @@ export const exerciseDatabase: Exercise[] = [
     name: "Bulgarian Split Squat",
     muscleGroup: "quads",
     equipment: ["home", "gym"],
-    description: "Rear foot elevated, lower into lunge position.",
+    description: "Rear foot elevated on a seat/firm object, lower into lunge position.",
     tips: {
-      hypertrophy: "12-15 reps per leg, slow tempo",
+      hypertrophy: "12-15 reps per leg, fast up, slow down, aim for knees beyond toes while keeping feet flat to the floor",
       strength: "Add dumbbells, 8-10 reps",
       general: "Bodyweight, 15-20 reps per leg"
     }
