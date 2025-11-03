@@ -1,4 +1,4 @@
-export type WorkoutFrequency = "2-3 times" | "3-4 times" | "4-5 times" | "5+ times";
+export type WorkoutFrequency = "1-2 times" | "4-5 times" | "5+ times";
 
 export type FitnessGoal = "hypertrophy" | "strength" | "general";
 
