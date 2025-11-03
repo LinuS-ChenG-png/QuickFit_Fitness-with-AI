@@ -7,7 +7,7 @@ export const exerciseDatabase: Exercise[] = [
     name: "Dumbbell Bicep Curl",
     muscleGroup: "biceps",
     equipment: ["gym"],
-    description: "Stand with dumbbells at your sides, curl weights up while keeping elbows stationary.",
+    description: "Stand with dumbbells at your sides, palms facing foward, curl weights up while keeping elbows stationary.",
     tips: {
       hypertrophy: "Use moderate weight, 8-12 reps, focus on the squeeze at the top for 2 seconds",
       strength: "Use heavier weight, 4-6 reps, controlled movement with full range of motion",
@@ -83,7 +83,7 @@ export const exerciseDatabase: Exercise[] = [
     name: "Incline Dumbbell Press",
     muscleGroup: "upperChest",
     equipment: ["gym"],
-    description: "Lie on incline bench (30-45°), press dumbbells up and together.",
+    description: "Lie on incline bench (30-60°), press dumbbells up in a straight line, focus on pushing with chest.",
     tips: {
       hypertrophy: "Moderate weight, 8-12 reps, squeeze at top, slow descent",
       strength: "Heavy weight, 4-6 reps, explosive press",
@@ -159,7 +159,7 @@ export const exerciseDatabase: Exercise[] = [
     name: "Dumbbell Shrugs",
     muscleGroup: "traps",
     equipment: ["gym"],
-    description: "Hold dumbbells at sides, elevate shoulders straight up.",
+    description: "Hold heavy dumbbells at sides, elevate shoulders straight up, shorter rest between sets.",
     tips: {
       hypertrophy: "Moderate weight, 12-15 reps, hold at top for 2 seconds",
       strength: "Heavy weight, 8-10 reps",
@@ -183,7 +183,7 @@ export const exerciseDatabase: Exercise[] = [
     name: "Resistance Band Shrugs",
     muscleGroup: "traps",
     equipment: ["home"],
-    description: "Stand on band, hold handles, perform shrug motion.",
+    description: "Stand on band, hold the ends, perform shrug motion.",
     tips: {
       hypertrophy: "15-20 reps, hold peak contraction",
       strength: "Double bands, 10-12 reps",
