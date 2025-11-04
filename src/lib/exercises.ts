@@ -7,7 +7,7 @@ export const exerciseDatabase: Exercise[] = [
     name: "Dumbbell Bicep Curl",
     muscleGroup: "biceps",
     equipment: ["gym"],
-    description: "Stand with dumbbells at your sides, palms facing foward, curl weights up while keeping elbows stationary.",
+    description: "Stand with dumbbells at your sides, palms facing forward, curl weights up while keeping elbows stationary.",
     tips: {
       hypertrophy: "Use moderate weight, 8-12 reps, focus on the squeeze at the top for 2 seconds",
       strength: "Use heavier weight, 4-6 reps, controlled movement with full range of motion",
@@ -100,6 +100,18 @@ export const exerciseDatabase: Exercise[] = [
       hypertrophy: "Slow tempo (3 seconds down), 12-15 reps, squeeze at top",
       strength: "Add weight on back, 8-10 reps",
       general: "Bodyweight, 15-20 reps, good form"
+    }
+  },
+  {
+    id: "cable flies",
+    name: "Cable Flies",
+    muscleGroup: "upperChest",
+    equipment: ["gym"],
+    description: "Set two cables at about head height, face away from cable and pull towards the centre of body",
+    tips: {
+      hypertrophy: "Pull with 100%, slow eccentric, 8-10 reps, stretch at the end",
+      strength: "use this as a warm-up for pecs",
+      general: "Focus on stretch at the end, and squeeze at the front of the pecs"
     }
   },
   {
