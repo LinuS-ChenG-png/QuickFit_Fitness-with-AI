@@ -5,13 +5,14 @@ QuickFit gives you personalised fitness workouts that can be accomplished anywhe
 ## What technologies are used for this project?
 
 This project is built with:
-- Vite 
-- TypeScript 
-- React 
-- shadcn-ui 
+- TypeScript
 - Tailwind CSS
+- React
+- Vite 
+- shadcn-ui 
 
-[![My Skills](https://skillicons.dev/icons?i=vite,java,react,tailwind)](https://skillicons.dev)
+
+[![My Skills](https://skillicons.dev/icons?i=java,tailwind,react,vite)](https://skillicons.dev)
 
 ## Todos
 - Edit muscle anatomy diagram dimensions; the diagram is a stick
