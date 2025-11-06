@@ -79,7 +79,7 @@ const WorkoutComplete = () => {
         <div className="mt-8 p-6 bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg border border-primary/20">
           <p className="text-sm text-center leading-relaxed">
             <strong>Consistency is key!</strong> Keep showing up, and you'll see amazing results.
-            See you next workout! 🎯
+            See you at the next workout! 🎯
           </p>
         </div>
       </div>
