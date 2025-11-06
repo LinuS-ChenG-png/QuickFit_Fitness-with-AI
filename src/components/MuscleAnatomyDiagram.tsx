@@ -41,14 +41,6 @@ const MuscleAnatomyDiagram = ({
 
   const muscles = view === "front" ? frontMuscles : backMuscles;
 
-  // Filter out duplicate muscle labels (only show label once per muscle group)
-  const uniqueMuscles = muscles.reduce((acc, muscle) => {
-    if (!acc.find((m) => m.id === muscle.id && m.label === muscle.label)) {
-      acc.push(muscle);
-    }
-    return acc;
-  }, [] as typeof muscles);
-
   return (
     <div className="relative w-full max-w-md mx-auto aspect-[3/4] bg-gradient-to-b from-muted/30 to-muted/10 rounded-lg overflow-hidden perspective-1000">
       {/* Body outline - improved human shape */}
@@ -122,7 +114,7 @@ const MuscleAnatomyDiagram = ({
       </svg>
 
       {/* Muscle group buttons */}
-      {uniqueMuscles.map((muscle, index) => {
+      {muscles.map((muscle, index) => {
         const isSelected = selectedMuscles.includes(muscle.id);
         return (
           <button
