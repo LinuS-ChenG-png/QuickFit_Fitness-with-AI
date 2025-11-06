@@ -46,12 +46,13 @@ const MuscleAnatomyDiagram = ({
       {/* Body outline - improved human shape */}
       <svg
         viewBox="0 0 300 400"
-        className={`absolute inset-0 w-full h-full transition-transform duration-500 ${
+        className={`absolute inset-0 w-full h-full transition-transform duration-500 pointer-events-none -z-10 ${
           view === "back" ? "rotate-y-180" : ""
         }`}
         style={{ 
           filter: "drop-shadow(0 0 8px rgba(0,0,0,0.1))",
-          transformStyle: "preserve-3d"
+          transformStyle: "preserve-3d",
+          backfaceVisibility: "hidden"
         }}
       >
         {view === "front" ? (
@@ -119,8 +120,9 @@ const MuscleAnatomyDiagram = ({
         return (
           <button
             key={`${muscle.id}-${index}`}
+            type="button"
             onClick={() => onMuscleClick(muscle.id)}
-            className={`absolute transition-all hover:scale-105 ${
+            className={`absolute z-50 cursor-pointer select-none transition-transform duration-200 hover:scale-105 ${
               isSelected
                 ? "bg-primary text-primary-foreground shadow-lg"
                 : "bg-card hover:bg-accent text-card-foreground"
