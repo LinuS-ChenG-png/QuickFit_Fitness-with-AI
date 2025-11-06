@@ -105,8 +105,20 @@ const WorkoutSession = () => {
 
           {/* Exercise Tips */}
           {tip && (
-            <div className="mb-6 p-6 bg-accent/10 rounded-lg border-2 border-accent/20">
-              <h3 className="font-semibold text-lg mb-3 text-accent-foreground flex items-center">
+            <div className={`mb-6 p-6 rounded-lg border-2 ${
+              goals[0] === "hypertrophy" 
+                ? "bg-primary/20 border-primary/40" 
+                : goals[0] === "strength"
+                ? "bg-accent/20 border-accent/40"
+                : "bg-secondary/20 border-secondary/40"
+            }`}>
+              <h3 className={`font-semibold text-lg mb-3 flex items-center ${
+                goals[0] === "hypertrophy"
+                  ? "text-primary"
+                  : goals[0] === "strength"
+                  ? "text-accent"
+                  : "text-foreground"
+              }`}>
                 <span className="mr-2">💡</span>
                 {goals[0] ? `${goals[0].charAt(0).toUpperCase() + goals[0].slice(1)} Focus` : "Training Tip"}
               </h3>
