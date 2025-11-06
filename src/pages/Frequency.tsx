@@ -13,8 +13,7 @@ const Frequency = () => {
   const [hasIrregularSchedule, setHasIrregularSchedule] = useState(false);
 
   const frequencies: { value: WorkoutFrequency; label: string }[] = [
-    { value: "2-3 times", label: "2-3 times per week" },
-    { value: "3-4 times", label: "3-4 times per week" },
+    { value: "1-2 times", label: "1-2 times per week" },
     { value: "4-5 times", label: "4-5 times per week" },
     { value: "5+ times", label: "5+ times per week" },
   ];
