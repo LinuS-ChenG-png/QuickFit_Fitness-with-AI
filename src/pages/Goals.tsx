@@ -16,7 +16,7 @@ const Goals = () => {
     {
       value: "hypertrophy",
       label: "Hypertrophy (Muscle Growth)",
-      description: "Focus on building muscle size and definition",
+      description: "Build your muscle size and definition",
       icon: Dumbbell,
       image: hypertrophyImage,
     },
