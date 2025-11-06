@@ -184,8 +184,8 @@ const WorkoutSession = () => {
         <div className="mt-8 text-center">
           <p className="text-muted-foreground italic">
             {completedExercises.size === 0 && "Let's crush this workout! 💪"}
-            {completedExercises.size > 0 && completedExercises.size < exercises.length && "You're doing amazing! Keep it up! 🔥"}
-            {completedExercises.size === exercises.length - 1 && "Almost there! One more to go! 🎯"}
+            {completedExercises.size > 0 && completedExercises.size < exercises.length && "You're doing amazing! Keep it going! 🔥"}
+            {completedExercises.size === exercises.length - 1 && "Almost there! Finish strong! 🎯"}
           </p>
         </div>
       </div>
