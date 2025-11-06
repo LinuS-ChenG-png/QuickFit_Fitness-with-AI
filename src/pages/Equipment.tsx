@@ -22,7 +22,7 @@ const Equipment = () => {
     {
       value: "gym",
       label: "At the Gym",
-      description: "Full access to gym equipment",
+      description: "Full access to equipment",
       icon: Dumbbell,
       bgImage: gymWorkoutBg,
     },
