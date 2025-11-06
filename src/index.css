@@ -79,6 +79,24 @@ All colors MUST be HSL.
   }
 }
 
+/* 3D flip animation */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+.rotate-y-180 {
+  transform: rotateY(180deg);
+}
+
+@keyframes rotate-y {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(180deg);
+  }
+}
+
 @layer base {
   * {
     @apply border-border;

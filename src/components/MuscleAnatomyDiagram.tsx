@@ -14,6 +14,8 @@ const MuscleAnatomyDiagram = ({
   const frontMuscles: { id: MuscleGroup; label: string; style: React.CSSProperties }[] = [
     { id: "biceps", label: "Biceps", style: { top: "28%", left: "16%", width: "10%" } },
     { id: "biceps", label: "Biceps", style: { top: "28%", right: "16%", width: "10%" } },
+    { id: "triceps", label: "Triceps", style: { top: "32%", left: "12%", width: "8%" } },
+    { id: "triceps", label: "Triceps", style: { top: "32%", right: "12%", width: "8%" } },
     { id: "forearms", label: "Forearms", style: { top: "40%", left: "14%", width: "12%" } },
     { id: "forearms", label: "Forearms", style: { top: "40%", right: "14%", width: "12%" } },
     { id: "upperChest", label: "Upper Chest", style: { top: "18%", left: "35%", width: "30%" } },
@@ -48,29 +50,74 @@ const MuscleAnatomyDiagram = ({
   }, [] as typeof muscles);
 
   return (
-    <div className="relative w-full max-w-md mx-auto aspect-[3/4] bg-gradient-to-b from-muted/30 to-muted/10 rounded-lg overflow-hidden">
-      {/* Body outline - simplified representation */}
+    <div className="relative w-full max-w-md mx-auto aspect-[3/4] bg-gradient-to-b from-muted/30 to-muted/10 rounded-lg overflow-hidden perspective-1000">
+      {/* Body outline - improved human shape */}
       <svg
         viewBox="0 0 300 400"
-        className="absolute inset-0 w-full h-full"
-        style={{ filter: "drop-shadow(0 0 8px rgba(0,0,0,0.1))" }}
+        className={`absolute inset-0 w-full h-full transition-transform duration-500 ${
+          view === "back" ? "rotate-y-180" : ""
+        }`}
+        style={{ 
+          filter: "drop-shadow(0 0 8px rgba(0,0,0,0.1))",
+          transformStyle: "preserve-3d"
+        }}
       >
         {view === "front" ? (
-          // Front body outline
-          <path
-            d="M150 20 L160 35 L170 65 L165 100 L160 140 L155 180 L150 240 L145 280 L140 320 L135 360 L140 395 L150 400 L160 395 L165 360 L170 320 L175 280 L180 240 L185 180 L190 140 L195 100 L190 65 L180 35 L170 20 Z M130 20 L140 35 L145 65 L148 100 L148 140 L148 180 L148 240 L148 280 L148 320 L148 360 L148 395 L150 400 L148 395 L145 360 L140 320 L135 280 L130 240 L125 180 L120 140 L115 100 L120 65 L130 35 Z"
-            fill="hsl(var(--muted))"
-            stroke="hsl(var(--border))"
-            strokeWidth="2"
-          />
+          // Front body outline - improved shape
+          <>
+            {/* Head */}
+            <ellipse cx="150" cy="30" rx="25" ry="30" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+            {/* Neck */}
+            <rect x="140" y="55" width="20" height="15" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+            {/* Torso - V-taper */}
+            <path
+              d="M 115 70 L 105 90 L 100 120 L 105 150 L 110 180 L 115 210 L 125 240 M 185 70 L 195 90 L 200 120 L 195 150 L 190 180 L 185 210 L 175 240"
+              fill="none"
+              stroke="hsl(var(--border))"
+              strokeWidth="2"
+            />
+            <path
+              d="M 115 70 Q 100 100 105 150 Q 110 200 125 240 L 135 270 L 140 300 L 145 330 L 145 380 L 150 400 L 155 380 L 155 330 L 160 300 L 165 270 L 175 240 Q 190 200 195 150 Q 200 100 185 70 L 150 60 Z"
+              fill="hsl(var(--muted))"
+              stroke="hsl(var(--border))"
+              strokeWidth="2"
+            />
+            {/* Arms */}
+            <ellipse cx="90" cy="110" rx="12" ry="30" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+            <ellipse cx="210" cy="110" rx="12" ry="30" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+            <ellipse cx="85" cy="160" rx="10" ry="35" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+            <ellipse cx="215" cy="160" rx="10" ry="35" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+            {/* Legs */}
+            <ellipse cx="135" cy="290" rx="18" ry="65" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+            <ellipse cx="165" cy="290" rx="18" ry="65" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+            <ellipse cx="135" cy="365" rx="12" ry="30" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+            <ellipse cx="165" cy="365" rx="12" ry="30" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+          </>
         ) : (
-          // Back body outline
-          <path
-            d="M150 20 L165 35 L175 65 L180 100 L185 140 L185 180 L180 240 L175 280 L170 320 L165 360 L160 395 L150 400 L140 395 L135 360 L130 320 L125 280 L120 240 L115 180 L115 140 L120 100 L125 65 L135 35 Z"
-            fill="hsl(var(--muted))"
-            stroke="hsl(var(--border))"
-            strokeWidth="2"
-          />
+          // Back body outline - improved shape
+          <>
+            {/* Head */}
+            <ellipse cx="150" cy="30" rx="25" ry="30" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+            {/* Neck */}
+            <rect x="140" y="55" width="20" height="15" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+            {/* Back torso - V-taper */}
+            <path
+              d="M 115 70 Q 100 100 105 150 Q 110 200 125 240 L 135 270 L 140 300 L 145 330 L 145 380 L 150 400 L 155 380 L 155 330 L 160 300 L 165 270 L 175 240 Q 190 200 195 150 Q 200 100 185 70 L 150 60 Z"
+              fill="hsl(var(--muted))"
+              stroke="hsl(var(--border))"
+              strokeWidth="2"
+            />
+            {/* Arms */}
+            <ellipse cx="90" cy="110" rx="12" ry="30" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+            <ellipse cx="210" cy="110" rx="12" ry="30" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+            <ellipse cx="85" cy="160" rx="10" ry="35" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+            <ellipse cx="215" cy="160" rx="10" ry="35" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+            {/* Legs */}
+            <ellipse cx="135" cy="290" rx="18" ry="65" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+            <ellipse cx="165" cy="290" rx="18" ry="65" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+            <ellipse cx="135" cy="365" rx="12" ry="30" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+            <ellipse cx="165" cy="365" rx="12" ry="30" fill="hsl(var(--muted))" stroke="hsl(var(--border))" strokeWidth="2"/>
+          </>
         )}
       </svg>
 

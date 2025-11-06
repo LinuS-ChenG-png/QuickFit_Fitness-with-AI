@@ -77,6 +77,44 @@ export const exerciseDatabase: Exercise[] = [
     }
   },
 
+  // Triceps
+  {
+    id: "tricep-dip",
+    name: "Tricep Dip",
+    muscleGroup: "triceps",
+    equipment: ["gym", "home"],
+    description: "Use parallel bars or bench, lower body by bending elbows, push back up focusing on triceps.",
+    tips: {
+      hypertrophy: "Full range of motion, 8-12 reps, add weight for progression",
+      strength: "Heavy weight added, 4-6 reps, explosive push",
+      general: "Bodyweight, 10-15 reps, controlled movement"
+    }
+  },
+  {
+    id: "overhead-extension",
+    name: "Overhead Tricep Extension",
+    muscleGroup: "triceps",
+    equipment: ["gym"],
+    description: "Hold dumbbell overhead with both hands, lower behind head, extend back up.",
+    tips: {
+      hypertrophy: "Moderate weight, 10-12 reps, full stretch at bottom",
+      strength: "Heavy weight, 6-8 reps, controlled tempo",
+      general: "Light to moderate weight, 12-15 reps"
+    }
+  },
+  {
+    id: "diamond-pushup",
+    name: "Diamond Push-up",
+    muscleGroup: "triceps",
+    equipment: ["home"],
+    description: "Hands close together forming diamond shape, perform push-up emphasizing triceps.",
+    tips: {
+      hypertrophy: "Slow tempo, 10-15 reps, pause at bottom",
+      strength: "Explosive push, 8-10 reps, can add weight on back",
+      general: "Controlled pace, 12-15 reps"
+    }
+  },
+
   // Upper Chest
   {
     id: "incline-press",

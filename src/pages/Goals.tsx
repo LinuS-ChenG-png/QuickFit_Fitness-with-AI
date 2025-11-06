@@ -4,29 +4,35 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { FitnessGoal } from "@/types/workout";
 import { ArrowLeft, Zap, Dumbbell, Heart } from "lucide-react";
+import hypertrophyImage from "@/assets/hypertrophy-cable-curls.jpg";
+import strengthImage from "@/assets/strength-deadlift.jpg";
+import generalImage from "@/assets/general-fitness-hyrox.jpg";
 
 const Goals = () => {
   const navigate = useNavigate();
   const [selectedGoals, setSelectedGoals] = useState<FitnessGoal[]>([]);
 
-  const goals: { value: FitnessGoal; label: string; description: string; icon: typeof Zap }[] = [
+  const goals: { value: FitnessGoal; label: string; description: string; icon: typeof Zap; image: string }[] = [
     {
       value: "hypertrophy",
       label: "Hypertrophy (Muscle Growth)",
       description: "Focus on building muscle size and definition",
       icon: Dumbbell,
+      image: hypertrophyImage,
     },
     {
       value: "strength",
       label: "Strength Building",
       description: "Increase your maximum power and lifting capacity",
       icon: Zap,
+      image: strengthImage,
     },
     {
       value: "general",
       label: "General Fitness",
       description: "Maintain overall health and conditioning",
       icon: Heart,
+      image: generalImage,
     },
   ];
 
@@ -79,8 +85,8 @@ const Goals = () => {
             return (
               <Card
                 key={goal.value}
-                className={`p-6 cursor-pointer transition-all ${
-                  isDisabled ? "opacity-50 cursor-not-allowed" : "hover:shadow-lg"
+                className={`p-6 cursor-pointer transition-all relative overflow-hidden ${
+                  isDisabled ? "opacity-50 cursor-not-allowed" : "hover:shadow-lg hover:scale-[1.02]"
                 } ${
                   isSelected
                     ? "border-primary border-2 bg-primary/5"
@@ -88,7 +94,11 @@ const Goals = () => {
                 }`}
                 onClick={() => !isDisabled && toggleGoal(goal.value)}
               >
-                <div className="flex items-start space-x-4">
+                <div
+                  className="absolute right-0 top-0 w-32 h-full opacity-20 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${goal.image})` }}
+                />
+                <div className="flex items-start space-x-4 relative z-10">
                   <div
                     className={`p-3 rounded-lg ${
                       isSelected ? "bg-primary text-primary-foreground" : "bg-muted"

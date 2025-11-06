@@ -138,8 +138,20 @@ const WorkoutPlan = () => {
                             {exercise.description}
                           </p>
                           {tip && (
-                            <div className="mt-3 p-3 bg-accent/10 rounded-lg border border-accent/20">
-                              <p className="text-sm font-medium text-accent-foreground">
+                            <div className={`mt-3 p-3 rounded-lg border-2 ${
+                              goals[0] === "hypertrophy" 
+                                ? "bg-primary/20 border-primary/40" 
+                                : goals[0] === "strength"
+                                ? "bg-accent/20 border-accent/40"
+                                : "bg-secondary/20 border-secondary/40"
+                            }`}>
+                              <p className={`text-sm font-semibold ${
+                                goals[0] === "hypertrophy"
+                                  ? "text-primary"
+                                  : goals[0] === "strength"
+                                  ? "text-accent"
+                                  : "text-foreground"
+                              }`}>
                                 💡 {goals[0] ? `${goals[0].charAt(0).toUpperCase() + goals[0].slice(1)} Tip:` : "Tip:"} {tip}
                               </p>
                             </div>

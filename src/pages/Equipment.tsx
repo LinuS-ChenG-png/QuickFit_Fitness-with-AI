@@ -3,24 +3,28 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EquipmentType } from "@/types/workout";
-import { ArrowLeft, Home, Building2 } from "lucide-react";
+import { ArrowLeft, Home, Dumbbell } from "lucide-react";
+import homeWorkoutBg from "@/assets/home-workout-bg.jpg";
+import gymWorkoutBg from "@/assets/gym-workout-bg.jpg";
 
 const Equipment = () => {
   const navigate = useNavigate();
   const [equipment, setEquipment] = useState<EquipmentType | null>(null);
 
-  const options: { value: EquipmentType; label: string; description: string; icon: typeof Home }[] = [
+  const options: { value: EquipmentType; label: string; description: string; icon: typeof Home; bgImage: string }[] = [
     {
       value: "home",
       label: "Home Workout",
       description: "Bodyweight exercises, no equipment needed",
       icon: Home,
+      bgImage: homeWorkoutBg,
     },
     {
       value: "gym",
       label: "At the Gym",
       description: "Full access to gym equipment",
-      icon: Building2,
+      icon: Dumbbell,
+      bgImage: gymWorkoutBg,
     },
   ];
 
@@ -62,14 +66,18 @@ const Equipment = () => {
             return (
               <Card
                 key={option.value}
-                className={`p-6 cursor-pointer transition-all hover:shadow-lg ${
+                className={`p-6 cursor-pointer transition-all hover:shadow-lg hover:scale-[1.02] relative overflow-hidden ${
                   isSelected
                     ? "border-primary border-2 bg-primary/5"
                     : "border-border"
                 }`}
                 onClick={() => setEquipment(option.value)}
               >
-                <div className="flex items-start space-x-4">
+                <div
+                  className="absolute inset-0 opacity-15 bg-cover bg-center"
+                  style={{ backgroundImage: `url(${option.bgImage})` }}
+                />
+                <div className="flex items-start space-x-4 relative z-10">
                   <div
                     className={`p-3 rounded-lg ${
                       isSelected ? "bg-primary text-primary-foreground" : "bg-muted"

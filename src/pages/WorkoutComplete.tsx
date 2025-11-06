@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Trophy, History, Home } from "lucide-react";
 import heroImage from "@/assets/hero-fitness.jpg";
+import flexImage from "@/assets/workout-complete-flex.jpg";
 
 const WorkoutComplete = () => {
   const navigate = useNavigate();
@@ -11,11 +12,20 @@ const WorkoutComplete = () => {
     <div className="min-h-screen bg-background">
       <div className="container max-w-2xl mx-auto px-4 py-12">
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-24 h-24 rounded-full bg-gradient-to-br from-primary to-accent mb-6">
-            <Trophy className="w-12 h-12 text-primary-foreground" />
+          <div className="relative inline-block mb-6">
+            <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-primary shadow-lg animate-scale-in">
+              <img 
+                src={flexImage} 
+                alt="Flexing muscles" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="absolute -top-2 -right-2 w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center animate-bounce">
+              <Trophy className="w-6 h-6 text-primary-foreground" />
+            </div>
           </div>
-          <h1 className="text-4xl font-bold mb-4">Workout Complete!</h1>
-          <p className="text-xl text-muted-foreground">
+          <h1 className="text-4xl font-bold mb-4 animate-fade-in">Workout Complete!</h1>
+          <p className="text-xl text-muted-foreground animate-fade-in">
             Amazing work today! You crushed it! 💪
           </p>
         </div>

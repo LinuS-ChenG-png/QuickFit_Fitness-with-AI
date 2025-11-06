@@ -3,7 +3,7 @@ export type WorkoutFrequency = "1-2 times" | "4-5 times" | "5+ times";
 export type FitnessGoal = "hypertrophy" | "strength" | "general";
 
 export type MuscleGroup = 
-  | "biceps" | "forearms" | "upperChest" | "lowerChest" | "traps" | "abs" | "quads"
+  | "biceps" | "triceps" | "forearms" | "upperChest" | "lowerChest" | "traps" | "abs" | "quads"
   | "upperBack" | "midBack" | "lowerBack" | "lats" | "glutes" | "hamstrings" | "calves";
 
 export type EquipmentType = "home" | "gym";

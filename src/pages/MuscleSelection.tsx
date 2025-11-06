@@ -58,9 +58,11 @@ const MuscleSelection = () => {
           <p className="text-muted-foreground text-lg mb-4">
             Choose the muscle groups you want to train today
           </p>
-          <p className="text-sm text-accent font-medium">
-            {selectedMuscles.length} muscle{selectedMuscles.length !== 1 ? "s" : ""} selected
-          </p>
+          <div className="inline-block px-4 py-2 bg-primary/20 rounded-full border-2 border-primary">
+            <p className="text-sm text-primary font-bold">
+              {selectedMuscles.length} muscle{selectedMuscles.length !== 1 ? "s" : ""} selected
+            </p>
+          </div>
         </div>
 
         <Card className="p-6 mb-6">
