@@ -91,6 +91,18 @@ export const exerciseDatabase: Exercise[] = [
     }
   },
   {
+    id: "cable tricep pressdown", 
+    name: "Cable Tricep Pressdown",
+    muscleGroup: "triceps",
+    equipment: ["gym"], 
+    description: "Using a rope attachment, set at maximum height, pull rope towards hips without moving elbows.",
+    tips: {
+      hypertrophy: "Focus on pulling down at 100%, slow controlled eccentric, 8-12 reps",
+      strength: "Heavy weight added, 6-8 reps, slow controlled eccentric",
+      general: "8-12 reps, ensure elbows are tucked in"
+    }
+  },
+  {
     id: "overhead-extension",
     name: "Overhead Tricep Extension",
     muscleGroup: "triceps",
