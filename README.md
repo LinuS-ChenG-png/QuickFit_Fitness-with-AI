@@ -15,8 +15,8 @@ This project is built with:
 [![My Skills](https://skillicons.dev/icons?i=java,tailwind,react,vite)](https://skillicons.dev)
 
 ## Todos
-- Edit muscle anatomy diagram dimensions; the diagram is a stick
-- Change heading for hypertrophy tips. Colours for hypertrophy heading make the word almost invisible.
+- ~Edit muscle anatomy diagram dimensions; the diagram is a stick~
+- ~Change heading for hypertrophy tips. Colours for hypertrophy heading make the word almost invisible.~
 - Some muscle groups have limited exercise options, especially for home workouts without equipment, eg QUADS - 1 Exercise: Bulgarian Split Squat. Bruh (Include eg squats with knees outside toes, lunges)
 - Instructions for some exercises not clear, "elevated"? Beginners may not understand. Eg. Edit it to "elevated on a firm object eg a stool, bench"
     - biceps, forearms, upperChest, lowerChest, traps, abs, quads, upperBack, midBack, lowerBack, lats, glutes, hamstrings, calves
