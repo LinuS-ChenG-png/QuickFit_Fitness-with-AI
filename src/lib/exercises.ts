@@ -198,8 +198,8 @@ export const exerciseDatabase: Exercise[] = [
       hypertrophy: "8-10 reps, 100% when pressing, feel the pec squeeze, then control the eccentric",
       strength: "6-8 reps, 100% when pressing, feel the pec squeeze, then control the eccentric", 
       general: "8-12 reps, 100% when pressing, feel the squeeze, then control the eccentric"
-    },
-
+    }
+  },
   // Lower Chest
   {
     id: "decline-press",
@@ -247,7 +247,9 @@ export const exerciseDatabase: Exercise[] = [
       hypertrophy: "8-10 reps, 100% when pressing, feel the pec squeeze, then control the eccentric",
       strength: "6-8 reps, 100% when pressing, feel the pec squeeze, then control the eccentric", 
       general: "8-12 reps, 100% when pressing, feel the squeeze, then control the eccentric"
-    },
+    }
+  }, 
+  
   // Traps
   {
     id: "shrugs",
