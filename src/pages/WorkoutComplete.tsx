@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { UserMenu } from "@/components/UserMenu";
 import { Trophy, History, Home } from "lucide-react";
 import heroImage from "@/assets/hero-fitness.jpg";
 import flexImage from "@/assets/workout-complete-flex.jpg";
@@ -10,6 +11,9 @@ const WorkoutComplete = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <div className="absolute top-4 right-4 z-10">
+        <UserMenu />
+      </div>
       <div className="container max-w-2xl mx-auto px-4 py-12">
         <div className="text-center mb-8">
           <div className="relative inline-block mb-6">

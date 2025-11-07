@@ -1,16 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { WorkoutFrequency } from "@/types/workout";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
+import { UserMenu } from "@/components/UserMenu";
+import { useToast } from "@/hooks/use-toast";
 import heroImage from "@/assets/hero-fitness.jpg";
 import { Dumbbell } from "lucide-react";
 
 const Frequency = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const { toast } = useToast();
   const [frequency, setFrequency] = useState<WorkoutFrequency | null>(null);
   const [hasIrregularSchedule, setHasIrregularSchedule] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  // Load existing preferences
+  useEffect(() => {
+    const loadPreferences = async () => {
+      if (!user) return;
+
+      const { data } = await supabase
+        .from('user_preferences')
+        .select('*')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (data) {
+        if (data.frequency) setFrequency(data.frequency as WorkoutFrequency);
+        setHasIrregularSchedule(data.has_irregular_schedule || false);
+      }
+    };
+
+    loadPreferences();
+  }, [user]);
 
   const frequencies: { value: WorkoutFrequency; label: string }[] = [
     { value: "1-2 times", label: "1-2 times per week" },
@@ -18,14 +45,32 @@ const Frequency = () => {
     { value: "5+ times", label: "5+ times per week" },
   ];
 
-  const handleContinue = () => {
-    if (!frequency) return;
+  const handleContinue = async () => {
+    if (!frequency || !user) return;
     
-    const preferences = {
-      frequency,
-      hasIrregularSchedule,
-    };
-    localStorage.setItem("workoutPreferences", JSON.stringify(preferences));
+    setLoading(true);
+
+    const { error } = await supabase
+      .from('user_preferences')
+      .upsert({
+        user_id: user.id,
+        frequency,
+        has_irregular_schedule: hasIrregularSchedule,
+      }, {
+        onConflict: 'user_id'
+      });
+
+    setLoading(false);
+
+    if (error) {
+      toast({
+        title: "Error saving preferences",
+        description: error.message,
+        variant: "destructive",
+      });
+      return;
+    }
+
     navigate("/goals");
   };
 
@@ -39,6 +84,9 @@ const Frequency = () => {
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-primary/60 to-background" />
+        <div className="absolute top-4 right-4">
+          <UserMenu />
+        </div>
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center text-primary-foreground">
             <Dumbbell className="w-16 h-16 mx-auto mb-4" />
@@ -111,9 +159,9 @@ const Frequency = () => {
           size="lg"
           className="w-full"
           onClick={handleContinue}
-          disabled={!frequency}
+          disabled={!frequency || loading}
         >
-          Continue
+          {loading ? "Saving..." : "Continue"}
         </Button>
       </div>
     </div>

@@ -3,17 +3,21 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Exercise, FitnessGoal } from "@/types/workout";
+import { Exercise, FitnessGoal, MuscleGroup } from "@/types/workout";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 import { CheckCircle2, ChevronRight } from "lucide-react";
 import { toast } from "sonner";
 import confetti from "canvas-confetti";
 
 const WorkoutSession = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [goals, setGoals] = useState<FitnessGoal[]>([]);
   const [completedExercises, setCompletedExercises] = useState<Set<number>>(new Set());
+  const [startTime] = useState(Date.now());
 
   useEffect(() => {
     const workoutData = localStorage.getItem("currentWorkout");
@@ -33,7 +37,7 @@ const WorkoutSession = () => {
   const currentExercise = exercises[currentIndex];
   const progress = exercises.length > 0 ? ((completedExercises.size) / exercises.length) * 100 : 0;
 
-  const handleNext = () => {
+  const handleNext = async () => {
     setCompletedExercises(prev => new Set(prev).add(currentIndex));
     
     if (currentIndex < exercises.length - 1) {
@@ -49,15 +53,21 @@ const WorkoutSession = () => {
         origin: { y: 0.6 },
       });
       
-      // Save workout history
-      const history = JSON.parse(localStorage.getItem("workoutHistory") || "[]");
-      history.unshift({
-        id: Date.now().toString(),
-        date: new Date().toISOString(),
-        exercises: exercises.length,
-        duration: "N/A", // Could track this with a timer
-      });
-      localStorage.setItem("workoutHistory", JSON.stringify(history.slice(0, 20))); // Keep last 20
+      // Save workout history to Supabase
+      if (user) {
+        const duration = Math.round((Date.now() - startTime) / 60000); // minutes
+        const muscleGroups = [...new Set(exercises.map(ex => ex.muscleGroup))];
+        
+        await supabase.from('workout_history').insert({
+          user_id: user.id,
+          workout_date: new Date().toISOString(),
+          exercises_count: exercises.length,
+          duration: `${duration} min`,
+          muscle_groups: muscleGroups as MuscleGroup[],
+          goals: goals,
+          equipment_type: exercises[0]?.equipment[0] || 'gym',
+        });
+      }
       
       toast.success("Workout Complete! 🎉", {
         description: "Amazing work today!",

@@ -1,15 +1,39 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { EquipmentType } from "@/types/workout";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Home, Dumbbell } from "lucide-react";
 import homeWorkoutBg from "@/assets/home-workout-bg.jpg";
 import gymWorkoutBg from "@/assets/gym-workout-bg.jpg";
 
 const Equipment = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const { toast } = useToast();
   const [equipment, setEquipment] = useState<EquipmentType | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const loadPreferences = async () => {
+      if (!user) return;
+
+      const { data } = await supabase
+        .from('user_preferences')
+        .select('equipment')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (data?.equipment) {
+        setEquipment(data.equipment as EquipmentType);
+      }
+    };
+
+    loadPreferences();
+  }, [user]);
 
   const options: { value: EquipmentType; label: string; description: string; icon: typeof Home; bgImage: string }[] = [
     {
@@ -28,14 +52,32 @@ const Equipment = () => {
     },
   ];
 
-  const handleContinue = () => {
-    if (!equipment) return;
+  const handleContinue = async () => {
+    if (!equipment || !user) return;
     
-    const stored = localStorage.getItem("workoutPreferences");
-    const preferences = stored ? JSON.parse(stored) : {};
-    preferences.equipment = equipment;
-    preferences.setupComplete = true;
-    localStorage.setItem("workoutPreferences", JSON.stringify(preferences));
+    setLoading(true);
+
+    const { error } = await supabase
+      .from('user_preferences')
+      .upsert({
+        user_id: user.id,
+        equipment,
+        setup_complete: true,
+      }, {
+        onConflict: 'user_id'
+      });
+
+    setLoading(false);
+
+    if (error) {
+      toast({
+        title: "Error saving equipment",
+        description: error.message,
+        variant: "destructive",
+      });
+      return;
+    }
+
     navigate("/workout-plan");
   };
 
@@ -113,9 +155,9 @@ const Equipment = () => {
           size="lg"
           className="w-full"
           onClick={handleContinue}
-          disabled={!equipment}
+          disabled={!equipment || loading}
         >
-          Generate My Workout
+          {loading ? "Saving..." : "Generate My Workout"}
         </Button>
       </div>
     </div>

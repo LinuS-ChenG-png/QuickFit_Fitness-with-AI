@@ -2,40 +2,65 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { ArrowLeft, Calendar, TrendingUp, Dumbbell } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
+import { ArrowLeft, Calendar, TrendingUp, Dumbbell, Loader2 } from "lucide-react";
 import { format } from "date-fns";
 
 interface WorkoutRecord {
   id: string;
-  date: string;
-  exercises: number;
+  workout_date: string;
+  exercises_count: number;
   duration: string;
 }
 
 const History = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [history, setHistory] = useState<WorkoutRecord[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const stored = localStorage.getItem("workoutHistory");
-    if (stored) {
-      setHistory(JSON.parse(stored));
-    }
-  }, []);
+    const loadHistory = async () => {
+      if (!user) return;
+
+      setLoading(true);
+      const { data } = await supabase
+        .from('workout_history')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('workout_date', { ascending: false });
+
+      if (data) {
+        setHistory(data);
+      }
+      setLoading(false);
+    };
+
+    loadHistory();
+  }, [user]);
 
   // Filter to last 2 weeks
   const twoWeeksAgo = new Date();
   twoWeeksAgo.setDate(twoWeeksAgo.getDate() - 14);
 
   const recentHistory = history.filter((record) => {
-    const recordDate = new Date(record.date);
+    const recordDate = new Date(record.workout_date);
     return recordDate >= twoWeeksAgo;
   });
 
   const olderHistory = history.filter((record) => {
-    const recordDate = new Date(record.date);
+    const recordDate = new Date(record.workout_date);
     return recordDate < twoWeeksAgo;
   });
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -84,15 +109,15 @@ const History = () => {
                       </div>
                       <div>
                         <p className="font-semibold">
-                          {format(new Date(record.date), "MMMM d, yyyy")}
+                          {format(new Date(record.workout_date), "MMMM d, yyyy")}
                         </p>
                         <p className="text-sm text-muted-foreground">
-                          {format(new Date(record.date), "h:mm a")}
+                          {format(new Date(record.workout_date), "h:mm a")}
                         </p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-medium">{record.exercises} exercises</p>
+                      <p className="text-sm font-medium">{record.exercises_count} exercises</p>
                       <p className="text-xs text-muted-foreground">{record.duration}</p>
                     </div>
                   </div>
@@ -116,13 +141,13 @@ const History = () => {
                       </div>
                       <div>
                         <p className="font-semibold">
-                          {format(new Date(record.date), "MMMM d, yyyy")}
+                          {format(new Date(record.workout_date), "MMMM d, yyyy")}
                         </p>
                         <p className="text-sm text-muted-foreground">Archived</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-sm font-medium">{record.exercises} exercises</p>
+                      <p className="text-sm font-medium">{record.exercises_count} exercises</p>
                     </div>
                   </div>
                 </Card>

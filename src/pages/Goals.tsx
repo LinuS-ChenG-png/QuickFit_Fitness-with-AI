@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { FitnessGoal } from "@/types/workout";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import { ArrowLeft, Zap, Dumbbell, Heart } from "lucide-react";
 import hypertrophyImage from "@/assets/hypertrophy-cable-curls.jpg";
 import strengthImage from "@/assets/strength-deadlift.jpg";
@@ -10,7 +13,28 @@ import generalImage from "@/assets/general-fitness-hyrox.jpg";
 
 const Goals = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const { toast } = useToast();
   const [selectedGoals, setSelectedGoals] = useState<FitnessGoal[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const loadPreferences = async () => {
+      if (!user) return;
+
+      const { data } = await supabase
+        .from('user_preferences')
+        .select('goals')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (data?.goals) {
+        setSelectedGoals(data.goals as FitnessGoal[]);
+      }
+    };
+
+    loadPreferences();
+  }, [user]);
 
   const goals: { value: FitnessGoal; label: string; description: string; icon: typeof Zap; image: string }[] = [
     {
@@ -44,13 +68,31 @@ const Goals = () => {
     }
   };
 
-  const handleContinue = () => {
-    if (selectedGoals.length === 0) return;
+  const handleContinue = async () => {
+    if (selectedGoals.length === 0 || !user) return;
     
-    const stored = localStorage.getItem("workoutPreferences");
-    const preferences = stored ? JSON.parse(stored) : {};
-    preferences.goals = selectedGoals;
-    localStorage.setItem("workoutPreferences", JSON.stringify(preferences));
+    setLoading(true);
+
+    const { error } = await supabase
+      .from('user_preferences')
+      .upsert({
+        user_id: user.id,
+        goals: selectedGoals,
+      }, {
+        onConflict: 'user_id'
+      });
+
+    setLoading(false);
+
+    if (error) {
+      toast({
+        title: "Error saving goals",
+        description: error.message,
+        variant: "destructive",
+      });
+      return;
+    }
+
     navigate("/muscles");
   };
 
@@ -134,9 +176,9 @@ const Goals = () => {
           size="lg"
           className="w-full"
           onClick={handleContinue}
-          disabled={selectedGoals.length === 0}
+          disabled={selectedGoals.length === 0 || loading}
         >
-          Continue
+          {loading ? "Saving..." : "Continue"}
         </Button>
       </div>
     </div>

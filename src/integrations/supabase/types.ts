@@ -14,7 +14,115 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_preferences: {
+        Row: {
+          created_at: string
+          equipment: string | null
+          frequency: string | null
+          goals: string[] | null
+          has_irregular_schedule: boolean | null
+          id: string
+          selected_muscles: string[] | null
+          setup_complete: boolean | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          equipment?: string | null
+          frequency?: string | null
+          goals?: string[] | null
+          has_irregular_schedule?: boolean | null
+          id?: string
+          selected_muscles?: string[] | null
+          setup_complete?: boolean | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          equipment?: string | null
+          frequency?: string | null
+          goals?: string[] | null
+          has_irregular_schedule?: boolean | null
+          id?: string
+          selected_muscles?: string[] | null
+          setup_complete?: boolean | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_preferences_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workout_history: {
+        Row: {
+          created_at: string
+          duration: string
+          equipment_type: string | null
+          exercises_count: number
+          goals: string[] | null
+          id: string
+          muscle_groups: string[] | null
+          user_id: string
+          workout_date: string
+        }
+        Insert: {
+          created_at?: string
+          duration: string
+          equipment_type?: string | null
+          exercises_count: number
+          goals?: string[] | null
+          id?: string
+          muscle_groups?: string[] | null
+          user_id: string
+          workout_date?: string
+        }
+        Update: {
+          created_at?: string
+          duration?: string
+          equipment_type?: string | null
+          exercises_count?: number
+          goals?: string[] | null
+          id?: string
+          muscle_groups?: string[] | null
+          user_id?: string
+          workout_date?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workout_history_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

@@ -3,25 +3,37 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { MuscleGroup } from "@/types/workout";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
 import MuscleAnatomyDiagram from "@/components/MuscleAnatomyDiagram";
 import { ArrowLeft, RotateCw } from "lucide-react";
 
 const MuscleSelection = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
+  const { toast } = useToast();
   const [view, setView] = useState<"front" | "back">("front");
   const [selectedMuscles, setSelectedMuscles] = useState<MuscleGroup[]>([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Check if this is a returning user
-    const stored = localStorage.getItem("workoutPreferences");
-    if (stored) {
-      const preferences = JSON.parse(stored);
-      if (preferences.setupComplete) {
-        // Skip to muscle selection for returning users
-        return;
+    const loadPreferences = async () => {
+      if (!user) return;
+
+      const { data } = await supabase
+        .from('user_preferences')
+        .select('selected_muscles')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (data?.selected_muscles) {
+        setSelectedMuscles(data.selected_muscles as MuscleGroup[]);
       }
-    }
-  }, []);
+    };
+
+    loadPreferences();
+  }, [user]);
 
   const toggleMuscle = (muscle: MuscleGroup) => {
     if (selectedMuscles.includes(muscle)) {
@@ -31,13 +43,31 @@ const MuscleSelection = () => {
     }
   };
 
-  const handleContinue = () => {
-    if (selectedMuscles.length === 0) return;
+  const handleContinue = async () => {
+    if (selectedMuscles.length === 0 || !user) return;
     
-    const stored = localStorage.getItem("workoutPreferences");
-    const preferences = stored ? JSON.parse(stored) : {};
-    preferences.selectedMuscles = selectedMuscles;
-    localStorage.setItem("workoutPreferences", JSON.stringify(preferences));
+    setLoading(true);
+
+    const { error } = await supabase
+      .from('user_preferences')
+      .upsert({
+        user_id: user.id,
+        selected_muscles: selectedMuscles,
+      }, {
+        onConflict: 'user_id'
+      });
+
+    setLoading(false);
+
+    if (error) {
+      toast({
+        title: "Error saving muscles",
+        description: error.message,
+        variant: "destructive",
+      });
+      return;
+    }
+
     navigate("/equipment");
   };
 
@@ -121,9 +151,9 @@ const MuscleSelection = () => {
           size="lg"
           className="w-full"
           onClick={handleContinue}
-          disabled={selectedMuscles.length === 0}
+          disabled={selectedMuscles.length === 0 || loading}
         >
-          Continue to Equipment
+          {loading ? "Saving..." : "Continue to Equipment"}
         </Button>
       </div>
     </div>

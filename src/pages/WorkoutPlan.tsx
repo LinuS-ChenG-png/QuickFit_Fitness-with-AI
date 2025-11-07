@@ -5,49 +5,58 @@ import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Exercise, FitnessGoal, MuscleGroup, EquipmentType } from "@/types/workout";
 import { generateWorkout } from "@/lib/exercises";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 import { ArrowLeft, Play } from "lucide-react";
 import { toast } from "sonner";
 
 const WorkoutPlan = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [selectedExercises, setSelectedExercises] = useState<Set<string>>(new Set());
   const [goals, setGoals] = useState<FitnessGoal[]>([]);
 
   useEffect(() => {
-    const stored = localStorage.getItem("workoutPreferences");
-    if (!stored) {
-      navigate("/");
-      return;
-    }
-
-    const preferences = JSON.parse(stored);
-    const { selectedMuscles, equipment, goals: userGoals } = preferences;
-
-    if (!selectedMuscles || !equipment) {
-      navigate("/");
-      return;
-    }
-
-    setGoals(userGoals || []);
-    const workout = generateWorkout(
-      selectedMuscles as MuscleGroup[],
-      equipment as EquipmentType,
-      userGoals as FitnessGoal[]
-    );
-    setExercises(workout);
-
-    // Auto-select first exercise of each muscle group
-    const autoSelected = new Set<string>();
-    const seenMuscles = new Set<string>();
-    workout.forEach((ex) => {
-      if (!seenMuscles.has(ex.muscleGroup)) {
-        autoSelected.add(ex.id);
-        seenMuscles.add(ex.muscleGroup);
+    const loadPreferencesAndGenerateWorkout = async () => {
+      if (!user) {
+        navigate("/");
+        return;
       }
-    });
-    setSelectedExercises(autoSelected);
-  }, [navigate]);
+
+      const { data } = await supabase
+        .from('user_preferences')
+        .select('*')
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (!data || !data.selected_muscles || !data.equipment) {
+        navigate("/");
+        return;
+      }
+
+      setGoals((data.goals || []) as FitnessGoal[]);
+      const workout = generateWorkout(
+        data.selected_muscles as MuscleGroup[],
+        data.equipment as EquipmentType,
+        data.goals as FitnessGoal[]
+      );
+      setExercises(workout);
+
+      // Auto-select first exercise of each muscle group
+      const autoSelected = new Set<string>();
+      const seenMuscles = new Set<string>();
+      workout.forEach((ex) => {
+        if (!seenMuscles.has(ex.muscleGroup)) {
+          autoSelected.add(ex.id);
+          seenMuscles.add(ex.muscleGroup);
+        }
+      });
+      setSelectedExercises(autoSelected);
+    };
+
+    loadPreferencesAndGenerateWorkout();
+  }, [navigate, user]);
 
   const toggleExercise = (id: string) => {
     const newSelected = new Set(selectedExercises);
