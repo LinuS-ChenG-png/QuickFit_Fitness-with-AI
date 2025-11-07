@@ -91,7 +91,7 @@ export const exerciseDatabase: Exercise[] = [
     }
   },
   {
-    id: "cable tricep pressdown", 
+    id: "cable-tricep-pressdown", 
     name: "Cable Tricep Pressdown",
     muscleGroup: "triceps",
     equipment: ["gym"], 
@@ -115,11 +115,23 @@ export const exerciseDatabase: Exercise[] = [
     }
   },
   {
+    id: "overhead-cable-tricep-extension",
+    name: "Overhead Cable Tricep Extension",
+    muscleGroup: "triceps",
+    equipment: ["gym"],
+    description: "Set cable at maximum height, use a rope attachment, face away and pull the rope away from the machine.",
+    tips: {
+      hypertrophy: "Moderate weight, 9-12 reps, keep elbows still, pull with triceps only, slow eccentric",
+      strength: "Heavy weight, 8-10 reps, keep elbows still, controlled movement, lower weight if cannot control the weight",
+      general: "Light to moderate weight, 12-15 reps, control the eccentric"
+    }
+  },
+  {
     id: "diamond-pushup",
     name: "Diamond Push-up",
     muscleGroup: "triceps",
     equipment: ["home"],
-    description: "Hands close together forming diamond shape, perform push-up emphasizing triceps.",
+    description: "Hands close together forming diamond shape, perform push-up focus on triceps.",
     tips: {
       hypertrophy: "Slow tempo, 10-15 reps, pause at bottom",
       strength: "Explosive push, 8-10 reps, can add weight on back",
@@ -153,7 +165,7 @@ export const exerciseDatabase: Exercise[] = [
     }
   },
   {
-    id: "cable flies",
+    id: "cable-flies",
     name: "Cable Flies",
     muscleGroup: "upperChest",
     equipment: ["gym"],
@@ -176,6 +188,17 @@ export const exerciseDatabase: Exercise[] = [
       general: "10-12 reps, controlled movement"
     }
   },
+  {
+    id: "iso-lateral-incline-machine-press",
+    name: "Iso-lateral Incline Machine Press",
+    muscleGroup: "upperChest", 
+    equipment: ["gym"],
+    description: "Use the machine that isolates the left and right pec movement, good for unequal pec strength or size",
+    tips: {
+      hypertrophy: "8-10 reps, 100% when pressing, feel the pec squeeze, then control the eccentric",
+      strength: "6-8 reps, 100% when pressing, feel the pec squeeze, then control the eccentric", 
+      general: "8-12 reps, 100% when pressing, feel the squeeze, then control the eccentric"
+    },
 
   // Lower Chest
   {
