@@ -11,7 +11,7 @@ export const exerciseDatabase: Exercise[] = [
     tips: {
       hypertrophy: "Use moderate weight, 8-12 reps, focus on the squeeze at the top for 2 seconds",
       strength: "Use heavier weight, 4-6 reps, controlled movement with full range of motion",
-      general: "Use comfortable weight, 10-15 reps, maintain proper form throughout"
+      general: "Use comfortable weight, 10-15 reps, focus on slow eccentric"
     }
   },
   {
