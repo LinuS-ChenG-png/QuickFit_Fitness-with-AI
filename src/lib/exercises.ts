@@ -193,7 +193,7 @@ export const exerciseDatabase: Exercise[] = [
     name: "Iso-lateral Incline Machine Press",
     muscleGroup: "upperChest", 
     equipment: ["gym"],
-    description: "Use the machine that isolates the left and right pec movement, good for unequal pec strength or size",
+    description: "Use the incline machine which isolates the left and right pec movement, good for unequal pec strength or size",
     tips: {
       hypertrophy: "8-10 reps, 100% when pressing, feel the pec squeeze, then control the eccentric",
       strength: "6-8 reps, 100% when pressing, feel the pec squeeze, then control the eccentric", 
@@ -237,7 +237,17 @@ export const exerciseDatabase: Exercise[] = [
       general: "15-20 reps, bodyweight"
     }
   },
-
+  {
+    id: "iso-lateral-decline-machine-press",
+    name: "Iso-lateral Decline Machine Press",
+    muscleGroup: "lowerChest", 
+    equipment: ["gym"],
+    description: "Use the decline machine which isolates the left and right pec movement, good for unequal pec strength or size",
+    tips: {
+      hypertrophy: "8-10 reps, 100% when pressing, feel the pec squeeze, then control the eccentric",
+      strength: "6-8 reps, 100% when pressing, feel the pec squeeze, then control the eccentric", 
+      general: "8-12 reps, 100% when pressing, feel the squeeze, then control the eccentric"
+    },
   // Traps
   {
     id: "shrugs",
