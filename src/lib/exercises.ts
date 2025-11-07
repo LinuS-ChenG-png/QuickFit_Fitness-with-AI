@@ -418,7 +418,7 @@ export const exerciseDatabase: Exercise[] = [
     name: "T-Bar Row",
     muscleGroup: "midBack",
     equipment: ["gym"],
-    description: "Pull bar to chest, focus on mid back contraction.",
+    description: "Pull bar to chest, focus on mid back contraction, drop the weight if requiring too much body momentum.",
     tips: {
       hypertrophy: "8-12 reps, squeeze for 2 seconds",
       strength: "Heavy weight, 5-7 reps",
@@ -456,7 +456,7 @@ export const exerciseDatabase: Exercise[] = [
     name: "Conventional Deadlift",
     muscleGroup: "lowerBack",
     equipment: ["gym"],
-    description: "Lift bar from ground to standing position, hinge at hips.",
+    description: "Lift bar from ground to standing position, hinge at hips, straighten back.",
     tips: {
       hypertrophy: "Moderate weight, 6-10 reps, controlled",
       strength: "Heavy weight, 3-5 reps, explosive",
@@ -494,7 +494,7 @@ export const exerciseDatabase: Exercise[] = [
     name: "Lat Pulldown",
     muscleGroup: "lats",
     equipment: ["gym"],
-    description: "Pull bar down to upper chest, focus on lat engagement.",
+    description: "Pull bar down to upper chest, focus on lat engagement, controlled eccentric, stretch at the top of the movement",
     tips: {
       hypertrophy: "10-12 reps, stretch at top, squeeze at bottom",
       strength: "Heavy weight, 6-8 reps",
