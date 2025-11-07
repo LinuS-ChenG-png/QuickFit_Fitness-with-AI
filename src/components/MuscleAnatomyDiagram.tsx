@@ -14,6 +14,8 @@ const MuscleAnatomyDiagram = ({
   const frontMuscles: { id: MuscleGroup; label: string; style: React.CSSProperties }[] = [
     { id: "biceps", label: "Biceps", style: { top: "28%", left: "16%", width: "10%" } },
     { id: "biceps", label: "Biceps", style: { top: "28%", right: "16%", width: "10%" } },
+    { id: "delts", label: "Delts", style: { top: "20%, right: "12%, width: "10%" } },
+    { id: "delts", label: "Delts", style: { top: "20%, right: "12%, width: "10%" } },
     { id: "triceps", label: "Triceps", style: { top: "32%", left: "12%", width: "8%" } },
     { id: "triceps", label: "Triceps", style: { top: "32%", right: "12%", width: "8%" } },
     { id: "forearms", label: "Forearms", style: { top: "40%", left: "14%", width: "12%" } },
