@@ -20,6 +20,7 @@ This project is built with:
 - Some muscle groups have limited exercise options, especially for home workouts without equipment, eg QUADS - 1 Exercise: Bulgarian Split Squat. Bruh (Include eg squats with knees outside toes, lunges)
 - Instructions for some exercises not clear, "elevated"? Beginners may not understand. Eg. Edit it to "elevated on a firm object eg a stool, bench"
     - biceps, forearms, upperChest, lowerChest, traps, abs, quads, upperBack, midBack, lowerBack, lats, glutes, hamstrings, calves
+- Web: Link to Google account, profile page, leaderboard.
 
 ## IMPORTANT: How to update app version 
 If you deploy to app store or play store, you must follow these steps: Edited code -> Create new build -> Submit for review -> App store review for a few days -> user gets the update notification 
