@@ -42,7 +42,7 @@ const WorkoutSession = () => {
     
     if (currentIndex < exercises.length - 1) {
       setCurrentIndex(currentIndex + 1);
-      toast.success("Great job! Moving to next exercise", {
+      toast.success("Great job! Moving on to the next exercise", {
         icon: "💪",
       });
     } else {
