@@ -337,6 +337,18 @@ export const exerciseDatabase: Exercise[] = [
       general: "25-30 reps"
     }
   },
+  { 
+    id: "russian-twist",
+    name: "Russian Twist",
+    muscleGroup: "abs",
+    equipment: ["home"],
+    description: "Keeping lower half of the body steady, sit and angle your back to the ground at about 30 degrees, twist your upper half.",
+    tips: {
+      hypertrophy: "20-30 reps, maintain the angle to the ground",
+      strength: "20-30 reps, maintain the angle to the ground",
+      general: "20-30 reps, maintain the angle to the ground"
+    }
+  },
 
   // Quads
   {
